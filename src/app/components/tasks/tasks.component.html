@@ -1,0 +1,11 @@
+<div class="tasks">
+  <!-- as there was ngFor we could access the task directly but here we need to access the event-->
+  <app-addtask (submitTask)="addNewTask($event)"></app-addtask>
+  <app-taskitem
+    *ngFor="let task of tasks"
+    [task]="task"
+    (onDelete)="deleteTask(task)"
+    (onToggle) = "toggleTask(task)"
+  ></app-taskitem>
+  <!-- tasks components consists of various taskitem component so use ngFor and give Input task property to access-->
+</div>

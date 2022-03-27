@@ -1,0 +1,10 @@
+<header>
+  <h2>{{ title }}</h2>
+  <app-button
+    text="{{ showAddTask ? 'Close' : 'Add' }}"
+    color="{{ showAddTask ? 'Red' : 'Green' }}"
+    (btnClick)="addTask()"
+  >
+    <!--the app button components can have various functions so it catches the emit-->
+  </app-button>
+</header>
