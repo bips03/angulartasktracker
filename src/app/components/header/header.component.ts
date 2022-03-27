@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UiService } from 'src/app/services/ui.service';
+import { UiService } from '../../services/ui.service';
 import { Subscription } from 'rxjs';
 
 @Component({
