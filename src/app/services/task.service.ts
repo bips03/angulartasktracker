@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Task } from '../Task';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-// import { TASKS } from '../dummy';
 import { Observable, of } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 
 const httpOptions = {
   headers : new HttpHeaders({
@@ -17,12 +18,17 @@ export class TaskService {
   private backendUrl = 'http://localhost:5000/tasks'
   
   //as we are importing a class need to declare in constructor
-  constructor(private http:HttpClient) {}
+  constructor(private http:HttpClient, private firestore : AngularFirestore) {}
 
-  getTasks(): Observable<Task[]> {
+  getTasks(): Observable<any> {
     // const tasks = of(TASKS);
     //dont need of as it handles that
-    return this.http.get<Task[]>(this.backendUrl);
+    // return this.http.get<Task[]>(this.backendUrl);
+   
+    const task = this.firestore.collection("tasks").snapshotChanges()
+    return task
+   
+
   }
 
   deleteTask(task:Task): Observable<Task> {
