@@ -19,18 +19,17 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
     // the taskservice object returns an observable which is subscribed
     this.taskService.getTasks().subscribe((res) => {
-      this.dummy = res
-      this.tasks = this.dummy.map( (v) => v.payload.doc.data())
+      this.dummy = res.docs;
+      this.tasks = this.dummy.map((v) => v.data());
+      console.log(this.tasks);
     });
   }
 
   //once caught in parent tasks to get delete we delete using service here
   deleteTask(task: Task) {
-    this.taskService
-      .deleteTask(task)
-      .subscribe(
-        () => (this.tasks = this.tasks.filter((t) => t.id !== task.id))
-      );
+    this.taskService.deleteTask(task).subscribe(() => {
+      this.tasks = this.tasks.filter((t) => t.id !== task.id);
+    });
   }
 
   toggleTask(task: Task) {
@@ -39,8 +38,11 @@ export class TasksComponent implements OnInit {
   }
 
   addNewTask(task: Task) {
-    this.taskService.addTask(task).subscribe((t) => {
-      this.tasks = [...this.tasks, t];
+    this.taskService.addTask(task).subscribe((res) => {
+      let id = res.id;
+      let newTask = { id, ...task };
+      this.tasks = [...this.tasks, newTask];
+      console.log(this.tasks);
     });
   }
 }

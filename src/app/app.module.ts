@@ -12,15 +12,9 @@ import { ButtonComponent } from './components/button/button.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { TaskitemComponent } from './components/taskitem/taskitem.component';
 import { AddtaskComponent } from './components/addtask/addtask.component';
+import { environment } from 'src/environments/environment';
 
-const firebase = {
-  apiKey: 'AIzaSyBuwSOpEUSH81g4zmcrD-atK-dRb31PtGM',
-  authDomain: 'angular-tasktracker.firebaseapp.com',
-  projectId: 'angular-tasktracker',
-  storageBucket: 'angular-tasktracker.appspot.com',
-  messagingSenderId: '229226861756',
-  appId: '1:229226861756:web:84816150f7cdd80896ecb9',
-};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +29,7 @@ const firebase = {
     FontAwesomeModule,
     HttpClientModule,
     FormsModule,
-    AngularFireModule.initializeApp(firebase),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule
 
   ],
