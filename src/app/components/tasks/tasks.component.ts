@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../Task';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
   selector: 'app-tasks',
@@ -14,7 +15,10 @@ export class TasksComponent implements OnInit {
   //this is the UI tasks
 
   //creating task service object in constructor
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private firestore: AngularFirestore
+  ) {}
 
   ngOnInit(): void {
     // the taskservice object returns an observable which is subscribed
@@ -38,11 +42,10 @@ export class TasksComponent implements OnInit {
   }
 
   addNewTask(task: Task) {
-    this.taskService.addTask(task).subscribe((res) => {
-      let id = res.id;
-      let newTask = { id, ...task };
+    const id = this.firestore.createId();
+    const newTask = { id, ...task };
+    this.taskService.addTask(newTask, id).subscribe((res) => {
       this.tasks = [...this.tasks, newTask];
-      console.log(this.tasks);
     });
   }
 }

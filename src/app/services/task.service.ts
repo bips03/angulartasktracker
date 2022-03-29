@@ -51,9 +51,8 @@ export class TaskService {
     return from(this.firestore.collection('tasks').doc(task.id).set(task))
   }
 
-  addTask(task:Task) : Observable<any>{
+  addTask(task:Task,id: string) : Observable<any>{
     // return this.http.post<Task>(this.backendUrl,task,httpOptions)
-
-    return from(this.firestore.collection('tasks').add(task))
+    return from(this.firestore.collection('tasks').doc(id).set({id,...task}))
   }
 }
